@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"demo-1/app"
+	"demo-1/app/book"
 
 	"github.com/gin-gonic/gin"
 )
