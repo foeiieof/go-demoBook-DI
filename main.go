@@ -1,7 +1,6 @@
 package main
 
 import (
-	"demo-1/app/book"
 	"demo-1/config"
 	"demo-1/routes"
 
@@ -9,16 +8,8 @@ import (
 )
 
 func main() {
-
   config.Initail()
-
-  repository := app.NewBookRepository(config.DB)
-  service := app.NewBookService(repository)
-  handler := app.NewBookHandler(service)
-
   r := gin.Default()
-
-  routes.SetupRoutes(r, handler)
-
+  routes.SetupRoutes(r)
   r.Run(":8080")
 }

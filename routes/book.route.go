@@ -1,22 +1,22 @@
 package routes
 
 import (
-	"demo-1/app/book"
+	book "demo-1/app/book"
 
+  "demo-1/config"
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRoutes(r *gin.Engine, bookHandlers *app.BookHandler){
+ 
+func BookRoutes(r *gin.RouterGroup){
+    repository := book.NewBookRepository(config.DB)
+    service := book.NewBookService(repository)
+    bookHandlers := book.NewBookHandler(service)
 
-  bookRoutes := r.Group("/books")
-  {
-    bookRoutes.GET("/", bookHandlers.GetAllBooks)
-    bookRoutes.GET("/:id", bookHandlers.GetBookById)
-    bookRoutes.POST("/", bookHandlers.CreateBook)
-    bookRoutes.PUT("/:id",bookHandlers.UpdateBook)
-    bookRoutes.DELETE("/:id",bookHandlers.DeleteBook)
-  }
-
-
+    r.GET("/", bookHandlers.GetAllBooks)
+    r.GET("/:id", bookHandlers.GetBookById)
+    r.POST("/", bookHandlers.CreateBook)
+    r.PUT("/:id",bookHandlers.UpdateBook)
+    r.DELETE("/:id",bookHandlers.DeleteBook)
 }
 
