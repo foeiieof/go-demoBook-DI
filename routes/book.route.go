@@ -9,14 +9,15 @@ import (
 
  
 func BookRoutes(r *gin.RouterGroup){
+
     repository := book.NewBookRepository(config.DB)
     service := book.NewBookService(repository)
-    bookHandlers := book.NewBookHandler(service)
+    handlers := book.NewBookHandler(service)
 
-    r.GET("/", bookHandlers.GetAllBooks)
-    r.GET("/:id", bookHandlers.GetBookById)
-    r.POST("/", bookHandlers.CreateBook)
-    r.PUT("/:id",bookHandlers.UpdateBook)
-    r.DELETE("/:id",bookHandlers.DeleteBook)
+    r.GET("/", handlers.GetAllBooks)
+    r.GET("/:id", handlers.GetBookById)
+    r.POST("/", handlers.CreateBook)
+    r.PUT("/:id",handlers.UpdateBook)
+    r.DELETE("/:id", handlers.DeleteBook)
 }
 
